@@ -6,29 +6,31 @@ using System.Threading.Tasks;
 
 namespace CatsFeedingApp
 {
-    internal class Owner
+    internal class Owner : IOwner
     {
-        public event Action<Bowl, int>? FilledBowl;
-        int fillMealsAmount;
-        public Owner(int fillMealsAmount)
+        private readonly int _fillMealsAmount;
+        public Owner(string name, int fillMealsAmount)
         {
-            this.fillMealsAmount = fillMealsAmount;
+            Name = name;
+            this._fillMealsAmount = fillMealsAmount;
         }
 
         #region Subscription
         public void SubscribeEmpty(Bowl bowl)
         {
-            bowl.Empty += OnEmpty;
+            bowl.Empty += OnEmptyBowl;
         }
         public void UnsubscribeEmpty(Bowl bowl)
         {
-            bowl.Empty -= OnEmpty;
+            bowl.Empty -= OnEmptyBowl;
         }
         #endregion
-        private void OnEmpty(Bowl bowl)
+        public string Name { get; set; }
+        public event Action<IBowl, int>? Refilled;
+        public void OnEmptyBowl(IBowl bowl)
         {
-            Console.WriteLine($"{bowl.Name} is empty. Filling it with {fillMealsAmount} meals");
-            FilledBowl?.Invoke(bowl, fillMealsAmount);
+            Console.WriteLine($"{bowl.Name} is empty. Filling it with {_fillMealsAmount} meals by {Name}.");
+            Refilled?.Invoke(bowl, _fillMealsAmount);
         }
     }
 }

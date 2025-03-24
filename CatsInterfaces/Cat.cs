@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace CatsFeedingApp
 {
-    internal class Cat
+    internal class Cat : IEater
     {
-        string name;
-        public event Action<Cat, Bowl>? WannaEat;
-        public Cat(string name) { this.name = name; } 
-        public string Name { get { return name; } }
-        public void Feed(Bowl bowl) {
-            
-            WannaEat?.Invoke(this, bowl);
+        public Cat(string name) { Name = name; }
+        public string Name { get; set; }
 
+        public event Action<IEater, IBowl>? WannaEat;
+        public void Eat(IBowl bowl)
+        {
+            WannaEat?.Invoke(this, bowl);
         }
     }
 }

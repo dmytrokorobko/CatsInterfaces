@@ -1,23 +1,23 @@
 ﻿using CatsFeedingApp;
 
-List<Cat> cats = new List<Cat> { 
+List<IEater> cats = new List<IEater> { 
     new Cat("Tom"), 
     new Cat("Jerry"),
     new Cat("Garfield"),
     new Cat("Sylvester")
 };
 
-Owner owner = new Owner(3);
+Owner owner = new Owner("Bob", 3);
 
-List<Bowl> bowls = new List<Bowl> {
+List<IBowl> bowls = new List<IBowl> {
     new Bowl("Bowl1", 2),
     new Bowl("Bowl2", 1),
     new Bowl("Bowl3", 3)
 };
 
-foreach (var cat in cats)
+foreach (IEater cat in cats)
 {
-    foreach (var bowl in bowls)
+    foreach (IBowl bowl in bowls)
     {
         bowl.SubscribeWannaEat(cat);
     }
