@@ -7,4 +7,6 @@ public interface IBowl
     event Action<IBowl>? Empty;
     void OnConsumeFood(IEater eater, IBowl bowl);
     void OnRefill(IBowl bowl, int amount);
+    void SubscribeWannaEat(IEater cat);
+    void SubscribeFilledBowl(IOwner owner);
 }

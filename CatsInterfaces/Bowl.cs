@@ -54,14 +54,6 @@ namespace CatsFeedingApp
         {
             owner.Refilled += OnRefill;
         }
-        public void UnsubscribeWannaEat(IEater cat)
-        {
-            cat.WannaEat -= OnConsumeFood;
-        }
-        public void UnsubscribeFilledBowl(IOwner owner)
-        {
-            owner.Refilled -= OnRefill;
-        }
         #endregion
     }
 }

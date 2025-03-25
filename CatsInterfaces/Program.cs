@@ -1,10 +1,12 @@
 ﻿using CatsFeedingApp;
 
-List<IEater> cats = new List<IEater> { 
-    new Cat("Tom"), 
-    new Cat("Jerry"),
-    new Cat("Garfield"),
-    new Cat("Sylvester")
+List<IEater> animals = new List<IEater> { 
+    new Cat("Cat Tom"), 
+    new Cat("Cat Jerry"),
+    new Cat("Cat Garfield"),
+    new Cat("Cat Sylvester"),
+    new Dog("Dog Luke"),
+    new Dog("Dog Gektor")
 };
 
 Owner owner = new Owner("Bob", 3);
@@ -15,11 +17,11 @@ List<IBowl> bowls = new List<IBowl> {
     new Bowl("Bowl3", 3)
 };
 
-foreach (IEater cat in cats)
+foreach (IEater animal in animals)
 {
     foreach (IBowl bowl in bowls)
     {
-        bowl.SubscribeWannaEat(cat);
+        bowl.SubscribeWannaEat(animal);
     }
 }
 
@@ -29,11 +31,13 @@ foreach (var bowl in bowls)
     owner.SubscribeEmpty(bowl);
 }
 
-for(int i = 0; i < 5; i++)
+TimerCallback callback = ShowCat;
+Timer timer = new Timer(callback, null, 0, 1000);
+Console.ReadLine();
+
+void ShowCat(object? state)
 {
-    foreach (var cat in cats)
-    {
-        int rnd = new Random().Next(0, bowls.Count);
-        cat.Feed(bowls[rnd]);
-    }
+    int rndCat = new Random().Next(0, animals.Count);
+    int rndBolw = new Random().Next(0, bowls.Count);
+    animals[rndCat].Eat(bowls[rndBolw]);
 }

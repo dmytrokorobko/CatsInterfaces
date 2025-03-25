@@ -12,21 +12,16 @@ namespace CatsFeedingApp
         public Owner(string name, int fillMealsAmount)
         {
             Name = name;
-            this._fillMealsAmount = fillMealsAmount;
+            _fillMealsAmount = fillMealsAmount;
         }
 
-        #region Subscription
-        public void SubscribeEmpty(Bowl bowl)
+        public string Name { get; set; }
+        public event Action<IBowl, int>? Refilled;
+        public void SubscribeEmpty(IBowl bowl)
         {
             bowl.Empty += OnEmptyBowl;
         }
-        public void UnsubscribeEmpty(Bowl bowl)
-        {
-            bowl.Empty -= OnEmptyBowl;
-        }
-        #endregion
-        public string Name { get; set; }
-        public event Action<IBowl, int>? Refilled;
+
         public void OnEmptyBowl(IBowl bowl)
         {
             Console.WriteLine($"{bowl.Name} is empty. Filling it with {_fillMealsAmount} meals by {Name}.");
